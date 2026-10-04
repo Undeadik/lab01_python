@@ -23,7 +23,6 @@ def validate(tokens: list[Token]) -> None:
 
         prev = (kind, value)
 
-    # выражение не должно заканчиваться оператором
     if prev is not None and prev[0] == "OPERATOR":
         raise CalculatorError("Выражение заканчивается оператором")
 

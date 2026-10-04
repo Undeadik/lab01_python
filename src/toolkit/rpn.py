@@ -44,4 +44,4 @@ def to_rpn(tokens: list[Token]) -> list[Token]:
 
 def _is_unary(prev_kind: str | None) -> bool:
     """Возвращает True, если знак +/- в этой позиции унарный."""
-    return prev_kind is None or prev_kind in "OPERATOR"
+    return prev_kind is None or prev_kind == "OPERATOR"

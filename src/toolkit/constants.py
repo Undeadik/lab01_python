@@ -24,6 +24,4 @@ OPERATOR_PRECEDENCE: Final[dict[str, int]] = {
     "/": 2,
     "%": 2,
     "//": 2,
-    "u+": 3,
-    "u-": 3,
 }

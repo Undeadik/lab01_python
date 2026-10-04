@@ -28,7 +28,6 @@ def tokenize(exp: str) -> list[Token]:
             raise CalculatorError(f"Недопустимый символ: {gap!r}")
 
         kind = match.lastgroup
-        assert kind is not None
         tokens.append((kind, match.group(kind)))
         last_end = match.end()
 
