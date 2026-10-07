@@ -23,7 +23,7 @@ def to_rpn(tokens: list[Token]) -> list[Token]:
                 output.append(stack.pop())
 
         elif kind == "OPERATOR":
-            if _is_unary(prev_kind):
+            if is_unary(prev_kind):
                 stack.append(("UNARY", "u" + value))
             else:
                 while (
@@ -42,6 +42,6 @@ def to_rpn(tokens: list[Token]) -> list[Token]:
     return output
 
 
-def _is_unary(prev_kind: str | None) -> bool:
+def is_unary(prev_kind: str | None) -> bool:
     """Возвращает True, если знак +/- в этой позиции унарный."""
     return prev_kind is None or prev_kind == "OPERATOR"

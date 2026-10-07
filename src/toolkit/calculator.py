@@ -24,7 +24,7 @@ def evaluate_rpn(rpn: list[Token]) -> int | float:
         elif kind == "OPERATOR":
             right = stack.pop()
             left = stack.pop()
-            stack.append(_apply_binary(value, left, right))
+            stack.append(apply_binary(value, left, right))
 
         else:
             raise CalculatorError(f"Неизвестный тип токена: {kind}")
@@ -42,7 +42,7 @@ def calculate(exp: str) -> float | int:
     return evaluate_rpn(rpn)
 
 
-def _apply_binary(op: str, left: int | float, right: int | float) -> int | float:
+def apply_binary(op: str, left: int | float, right: int | float) -> int | float:
     """Применяет бинарный оператор к двум операндам."""
     if op == "+":
         return left + right

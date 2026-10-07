@@ -13,10 +13,10 @@ def convert(value: float, from_unit: str, to_unit: str) -> float:
     group_to, factor_to = UNITS[to_unit]
 
     if group_from == "temp":
-        cels = _to_cels(value, from_unit)
+        cels = to_cels(value, from_unit)
         if cels < ABSOLUTE_ZERO:
             raise ConverterError("Температура ниже абсолютного нуля")
-        return _from_cels(cels, to_unit)
+        return from_cels(cels, to_unit)
 
     assert factor_from is not None
     assert factor_to is not None
@@ -24,7 +24,7 @@ def convert(value: float, from_unit: str, to_unit: str) -> float:
     return base_value/factor_to
 
 
-def _to_cels(value: float, unit: str) -> float:
+def to_cels(value: float, unit: str) -> float:
     """Переводит температуру в Цельсий."""
     if unit == "c":
         return value
@@ -35,7 +35,7 @@ def _to_cels(value: float, unit: str) -> float:
     raise ConverterError(f"Неизвестная единица температуры: {unit}")
 
 
-def _from_cels(cels: float, unit: str) -> float:
+def from_cels(cels: float, unit: str) -> float:
     """Переводит температуру из Цельсия в целевую единицу."""
     if unit == "c":
         return cels

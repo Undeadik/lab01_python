@@ -8,16 +8,17 @@ Token = tuple[str, str]
 
 def validate(tokens: list[Token]) -> None:
     """Проверяет, что поток токенов — корректное арифметическое выражение."""
+    # убирает выражения вида "    " тк на токенизации они не ловятся
     if not tokens:
-        raise CalculatorError("Пустое выражение")
+        raise CalculatorError("Пустое выражение") 
 
     prev: Token | None = None
 
     for index, (kind, value) in enumerate(tokens):
         if kind == "NUMBER":
-            _check_number(prev, index)
+            check_number(prev, index)
         elif kind == "OPERATOR":
-            _check_operator(prev, value, index)
+            check_operator(prev, value, index)
         else:
             raise CalculatorError(f"Неизвестный тип токена: {kind}")
 
@@ -26,7 +27,7 @@ def validate(tokens: list[Token]) -> None:
     if prev is not None and prev[0] == "OPERATOR":
         raise CalculatorError("Выражение заканчивается оператором")
 
-def _check_number(prev: Token | None, index: int) -> None:
+def check_number(prev: Token | None, index: int) -> None:
     """Проверяет, что число не идёт сразу после числа."""
     if prev is not None and prev[0] == "NUMBER":
         raise CalculatorError(
@@ -34,7 +35,7 @@ def _check_number(prev: Token | None, index: int) -> None:
         )
 
 
-def _check_operator(prev: Token | None, value: str, index: int) -> None:
+def check_operator(prev: Token | None, value: str, index: int) -> None:
     """Проверяет, что оператор стоит в допустимой позиции."""
     if prev is None:
         if value not in "+-":
