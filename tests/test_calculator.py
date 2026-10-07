@@ -9,9 +9,9 @@ from toolkit.tokenizer import tokenize
 
 # --- to_rpn ---
 
-def test_to_rpn_simple(simple_exp: str) -> None:
+def test_to_rpn_whithout_unary() -> None:
     """2+3*4 → 2 3 4 * +."""
-    tokens = tokenize(simple_exp)
+    tokens = tokenize("2+3*4")
     rpn = to_rpn(tokens)
     assert rpn == [
         ("NUMBER", "2"),
@@ -22,9 +22,9 @@ def test_to_rpn_simple(simple_exp: str) -> None:
     ]
 
 
-def test_to_rpn_unary(exp_with_unary: str) -> None:
+def test_to_rpn_unary() -> None:
     """-2*-3 → 2 u- 3 u- *."""
-    tokens = tokenize(exp_with_unary)
+    tokens = tokenize("-2*-3")
     rpn = to_rpn(tokens)
     assert rpn == [
         ("NUMBER", "2"),
@@ -37,7 +37,7 @@ def test_to_rpn_unary(exp_with_unary: str) -> None:
 
 # --- evaluate_rpn ---
 
-def test_evaluate_rpn_simple() -> None:
+def test_evaluate_rpn_whithout_unary() -> None:
     """2 3 + == 5."""
     rpn = [("NUMBER", "2"), ("NUMBER", "3"), ("OPERATOR", "+")]
     assert evaluate_rpn(rpn) == 5
@@ -77,9 +77,9 @@ def test_addition() -> None:
     assert calculate("2+2") == 4
 
 
-def test_precedence(simple_exp: str) -> None:
+def test_precedence() -> None:
     """Умножение идёт раньше сложения."""
-    assert calculate(simple_exp) == 14
+    assert calculate("2+3*4") == 14
 
 
 def test_div_is_float() -> None:
@@ -87,9 +87,9 @@ def test_div_is_float() -> None:
     assert calculate("10 / 4") == 2.5
 
 
-def test_unary_minus_both_sides(exp_with_unary: str) -> None:
+def test_unary_minus_both_sides() -> None:
     """-2*-3 == 6."""
-    assert calculate(exp_with_unary) == 6
+    assert calculate("-2*-3") == 6
 
 
 def test_whitespace_ignored() -> None:
@@ -128,7 +128,7 @@ def test_insignificant_zero() -> None:
 
 
 def test_hard_expression() -> None:
-    """Выражение со всеми операторами + int и float вместе + унарныe знаки."""
+    """Выражение со всеми операторами + int и float вместе + унарные знаки."""
     assert calculate("-3312++23226++55/6-9.9999*+8-+7--0.9999") == pytest.approx(19837.167366666667)
 
 # --- негативные ---

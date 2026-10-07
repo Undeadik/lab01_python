@@ -20,7 +20,7 @@ def test_calc_success() -> None:
     assert res.stdout.strip() == "14"
 
 
-def test_convert_success(length_in_cm: float) -> None:
+def test_convert_success() -> None:
     """Convert возвращает 0 и печатает результат."""
     res = run_cli(["convert", "100", "--from", "cm", "--to", "m"])
     assert res.returncode == 0
